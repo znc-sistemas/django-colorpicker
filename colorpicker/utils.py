@@ -20,11 +20,11 @@ def rgb_to_hex(rgb):
     return '#%02x%02x%02x' % rgb
 
 
+# RRGGBBAA
 def alpha_hex_to_rgba(value):
     value = value.lstrip('#')
     lv = len(value)
     rgba = tuple(int(value[i:i + lv / 3], 16) for i in range(0, lv, lv / 3))
-    rgba = rgba[1], rgba[2], rgba[3], rgba[0]
     return 'rgba%s' % str(rgba)
 
 
@@ -32,10 +32,11 @@ def rgba_to_tuple(rgba):
     return tuple(int(n) for n in rgba.replace('rgba(', '').replace(')', '').replace(' ', '').split(','))
 
 
+# RRGGBBAA
 def rgba_to_alpha_hex(rgba):
     if not type(rgba) == tuple:
         rgba = rgba_to_tuple(rgba)
-    return '#%02x%02x%02x%02x' % (rgba[3], rgba[0], rgba[1], rgba[2])
+    return '#%02x%02x%02x%02x' % rgba
 
 
 def is_valid_rgb(rgb):
@@ -71,6 +72,7 @@ def is_valid_hex(value):
     return is_valid_rgb(rgb)
 
 
+# RRGGBBAA
 def is_valid_alpha_hex(value):
     try:
         int(value[1:], 16)
