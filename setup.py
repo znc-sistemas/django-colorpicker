@@ -3,6 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-colorpicker',
+    version='0.1',
     description='Aplicação plugável Django para o bootstrap-colorpicker',
     long_description=open('README.md').read(),
     author='ZNC Sistemas',
