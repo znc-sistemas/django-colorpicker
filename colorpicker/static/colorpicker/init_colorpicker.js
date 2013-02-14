@@ -1,3 +1,3 @@
 jQuery(function(){
-    jQuery('.colorpicker').colorpicker({format: 'hex'});
+    jQuery('.colorpicker').colorpicker({format: 'rgb'});
 });
