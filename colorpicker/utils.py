@@ -29,7 +29,13 @@ def alpha_hex_to_rgba(value):
 
 
 def rgba_to_tuple(rgba):
-    return tuple(int(n) for n in rgba.replace('rgba(', '').replace(')', '').replace(' ', '').split(','))
+    rgba_list = []
+    for n in rgba.replace('rgba(', '').replace(')', '').replace(' ', '').split(','):
+        if '.' in n:
+            rgba_list.append(float(n))
+        else:
+            rgba_list.append(int(n))
+    return tuple(rgba_list)
 
 
 # RRGGBBAA
@@ -40,7 +46,10 @@ def rgba_to_alpha_hex(rgba):
 
 
 def is_valid_rgb(rgb):
-    r, g, b = rgb_to_tuple(rgb)
+    try:
+        r, g, b = rgb_to_tuple(rgb)
+    except:
+        return False
     if r < 0 or r > 255:
         return False
     if g < 0 or g > 255:
@@ -51,7 +60,10 @@ def is_valid_rgb(rgb):
 
 
 def is_valid_rgba(rgba):
-    r, g, b, a = rgba_to_tuple(rgba)
+    try:
+        r, g, b, a = rgba_to_tuple(rgba)
+    except:
+        return False
     if r < 0 or r > 255:
         return False
     if g < 0 or g > 255:
