@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 from django.forms.widgets import TextInput
-#from django.forms.util import flatatt
 from django.utils.safestring import mark_safe
 
 
@@ -25,9 +24,7 @@ class ColorPickerWidget(TextInput):
             'colorpicker/init_colorpicker.js',
         )
 
-        css = {
-           'all': ('colorpicker/colorpicker.css',)
-        }
+        css = {'all': ('colorpicker/colorpicker.css',)}
 
     def render(self, name, value, attrs=None):
         result = super(ColorPickerWidget, self).render(name, value, attrs)
@@ -40,11 +37,14 @@ class ColorPickerWidget(TextInput):
                 css_bg = 'rgb(255,255,255)'
 
         if self.as_component:
-            result = mark_safe(u'<div class="colorpicker input-append color" data-color="%s" data-color-format="%s">%s<span class="add-on"><i style="background-color: %s"></i></span></div>' % (
-                css_bg,
-                self.format,
-                result,
-                css_bg
-                ))
+            result = u'''
+            <div class="colorpicker input-append color" data-color="%s" data-color-format="%s">
+                %s<span class="add-on">
+                    <i style="background-color: %s"></i>
+                </span>
+            </div>''' % (css_bg,
+                         self.format,
+                         result,
+                         css_bg)
 
-        return result
+        return mark_safe(result)
