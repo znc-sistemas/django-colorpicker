@@ -2,6 +2,7 @@
 
 # From https://github.com/timchurch/django-color-utils/blob/master/color_utils/utils.py
 # From Stack Overflow: http://stackoverflow.com/a/214657
+import re
 
 
 def hex_to_rgb(value):
@@ -92,3 +93,14 @@ def is_valid_alpha_hex(value):
         return False
     rgba = alpha_hex_to_rgba(value)
     return is_valid_rgba(rgba)
+
+
+def rgba_to_abgr(rgba):
+    rgba_values = re.sub(r'[\(\)rgba]', '', rgba)
+    rgba_list = rgba_values.split(',')
+    if len(rgba_list) < 4:
+        return ''
+    rgb = list(map(int, rgba_list[:3]))
+    alpha = rgba_list[3]
+    alpha = int(float(alpha) * 255)
+    return '%02x%02x%02x%02x' % (alpha, rgb[2], rgb[1], rgb[0])
