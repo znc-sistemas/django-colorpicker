@@ -104,3 +104,13 @@ def rgba_to_abgr(rgba):
     alpha = rgba_list[3]
     alpha = int(float(alpha) * 255)
     return '%02x%02x%02x%02x' % (alpha, rgb[2], rgb[1], rgb[0])
+
+
+def rgba_to_hex_alpha(rgba):
+    rgba_values = re.sub(r'[\(\)rgba]', '', rgba)
+    rgba_list = rgba_values.split(',')
+    if len(rgba_list) < 4:
+        return None, None
+    rgb = tuple(map(int, rgba_list[:3]))
+    alpha = rgba_list[3]
+    return rgb_to_hex(rgb), alpha
