@@ -109,8 +109,13 @@ def rgba_to_abgr(rgba):
 def rgba_to_hex_alpha(rgba):
     rgba_values = re.sub(r'[\(\)rgba]', '', rgba)
     rgba_list = rgba_values.split(',')
-    if len(rgba_list) < 4:
+    if len(rgba_list) not in (4, 3):
         return None, None
+
     rgb = tuple(map(int, rgba_list[:3]))
+
+    if len(rgba_list) == 3:
+        return rgb_to_hex(rgb), 1.0
+
     alpha = rgba_list[3]
     return rgb_to_hex(rgb), alpha
